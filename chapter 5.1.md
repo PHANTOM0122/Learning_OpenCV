@@ -38,11 +38,9 @@ Mat dst = src + 100; // or src += 100;
 
 > **saturate_cast() 함수**
   * **자동으로 포화 연산을 수행한다**
-  <pre>
-  <code>
+  <pre> <code>
   uchar saturate_cast<uchar> (int v)
-  </code>
-  </pre>
+  </code> </pre>
   * v : int자료형 표현할 수 있는 범위의 정수
   * 반환값 : 0~255 정수
 ##### Example code // lenna 사진을 brightness +100
