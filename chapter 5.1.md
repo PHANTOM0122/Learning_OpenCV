@@ -18,7 +18,7 @@ cvtColor(img3, img4, COLOR_BGR2GRAY);
 </code>
 </pre>
 * **cvtColor(입력영상, 출력영상, 컬러변환 코드)**
-![result_brightness1](https://user-images.githubusercontent.com/50229148/106630980-ac5f0780-65bf-11eb-82f7-70380506e719.JPG)
+
 ### 5.1.2 영상의 밝기 조절
 
 > **dst(x,y) = src(x,y) + n**
@@ -33,7 +33,8 @@ Mat src = imread("lenna.bmp", IMREAD_GRAYSCALE);
 Mat dst = src + 100; // or src += 100;
 </code>
 </pre>
-![result_brightness2](https://user-images.githubusercontent.com/50229148/106630991-aec16180-65bf-11eb-84bc-dc1872f58833.JPG)
+![result_brightness1](https://user-images.githubusercontent.com/50229148/106630980-ac5f0780-65bf-11eb-82f7-70380506e719.JPG)
+
 ### 5.1.3 영상의 밝기 조절 직접 구현
 
 > **saturate_cast() 함수**
@@ -48,9 +49,11 @@ Mat dst = src + 100; // or src += 100;
 <code>
 for (int j = 0; j < src.rows; j++) {
 		for (int i = 0; i < src.cols; i++) {
-			dst.at<uchar>(j, i) = saturate_cast<uchar>(src.at<uchar>(j, i) + 100);
+			dst.at<uchar>(j, i) = saturate_cast<uchar>(src.at<uchar>(j, i) + 100); -> 포화연산 X
+			dst.at<uchar>(j, i) = saturate_cast<uchar>(src.at<uchar>(j, i) + 100); -> 포화연산 O
 		}
 	}
 </code>
 </pre>
+![result_brightness2](https://user-images.githubusercontent.com/50229148/106630991-aec16180-65bf-11eb-84bc-dc1872f58833.JPG)
 ![result_brightness3](https://user-images.githubusercontent.com/50229148/106631010-b123bb80-65bf-11eb-81d5-2738c287ccae.JPG)
