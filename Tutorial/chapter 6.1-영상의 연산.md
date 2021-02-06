@@ -13,4 +13,34 @@
   * dtype : dst가 src1,src2와 깊이가 같은 경우에는 -1을 지정가능. src1,2가 서로 다른 경우는 반드시 지정해야 한다.
   ##### Example code
   <pre><code>
-  Mat src1 = imread("aero2.bmp", 
+  Mat src1 = imread("aero.bmp", IMREAD_GRAYSCALE);
+ 	Mat src2 = imread("camera.bmp", IMREAD_GRAYSCALE);
+	 Mat dst;
+	 add(src1, src2, dst);
+ 	// or
+ 	dst = src1 + src2;
+  </code></pre>
+> **dst(x,y) = saturate(alpha * src1(x,y) + beta * src2(x,y) + gamma)**
+  * alpha + beta = 1인 경우 영상에서 포화되는 픽셀이 발생하지는 않으며, >1인 경우는 입력영상보다 밝아지고, <1이면 어두운 영상이 생성
+  * 두 영상의 가중치 합을 구하려면 **addWeighted() 함수**를 사용한다.
+  <pre><code>
+  void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype = -1);
+  </code></pre>
+  * gamma : 가중합 결과에 추가적으로 더할 값
+  <pre><code>
+  Mat src1 = imread("aero.bmp", IMREAD_GRAYSCALE);
+ 	Mat src2 = imread("camera.bmp", IMREAD_GRAYSCALE);
+	 Mat dst;
+	 addweighted(src1, 0.5, src2, 0.5, dst);
+  </code></pre>
+> **dst(x,y) = saturate(src1(x,y) - src2(x,y))**
+  * 두 영상의 차를 나타낸다.
+  <pre><code>
+  void substract(InputArray src1, InputArray src2, OutputArray dst, InputArray mask = noArray(), int dtype = -1);
+  </code></pre>
+> **dst(x,y) = |src1(x,y) - src2(x,y)|**
+ * **차영상은 두 개의 영상에서 변화가 있는 영역을 찾아낸다**
+  <pre><code>
+  void absdiff(InputArray src1, InputArray src2, OutputArray dst);
+  </code></pre>
+  
