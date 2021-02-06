@@ -43,6 +43,12 @@
   <pre><code>
   void absdiff(InputArray src1, InputArray src2, OutputArray dst);
   </code></pre>
+  <pre><code>
+  add(src1, src2, dst1);
+  addWeighted(src1, 0.5, src2, 0.5, 0, dst2);
+  subtract(src1, src2, dst3);
+  absdiff(src1, src2, dst4);
+  </code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/107119891-c5bcc800-68cd-11eb-9221-29989f03b3e0.png)
 
 ## 영상의 논리 연산
