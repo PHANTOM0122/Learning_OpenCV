@@ -43,4 +43,15 @@
   <pre><code>
   void absdiff(InputArray src1, InputArray src2, OutputArray dst);
   </code></pre>
-  
+![image](https://user-images.githubusercontent.com/50229148/107119891-c5bcc800-68cd-11eb-9221-29989f03b3e0.png)
+
+## 영상의 논리 연산
+<pre><code>
+void bitwise_and(InputArray src1, InputArray src2, OutputArray dst, InputArray mask = noArray(), int dtype = -1);
+void bitwise_or(InputArray src1, InputArray src2, OutputArray dst, InputArray mask = noArray(), int dtype = -1);
+void bitwise_xor(InputArray src1, InputArray src2, OutputArray dst, InputArray mask = noArray(), int dtype = -1);
+void bitwise_not(InputArray src1, InputArray src2, OutputArray dst, InputArray mask = noArray(), int dtype = -1);
+</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/107119862-9c9c3780-68cd-11eb-8b89-6eace07152fc.png)
+
+
