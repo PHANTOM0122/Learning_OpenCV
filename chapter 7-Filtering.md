@@ -100,7 +100,7 @@ void blurring_gaussian() {
 ![image](https://user-images.githubusercontent.com/50229148/107513804-1c871200-6bec-11eb-94e2-278de1fba85d.png)
 ![image](https://user-images.githubusercontent.com/50229148/107513825-26107a00-6bec-11eb-9136-6d139fe23f68.png)
 ![image](https://user-images.githubusercontent.com/50229148/107513854-2f99e200-6bec-11eb-8240-7f5e1d8bbb40.png)
-## 7.2 영상의 Sharpening : 영상 날카롭게 하기!
+## 7.3 영상의 Sharpening : 영상 날카롭게 하기!
 * **샤프닝은 초점이 잘 맞은 사진처럼 사물의 윤곽이 뚜렷하고 선명한 느낌이 나도록 영상을 변경하는 필터링 기법**
 #### 7.3-1) Unsharp mask filter
 * Sharpening을 위해서는 영상의 edge 근방에서 pixel의 명암비가 커지도록 수정해야 한다.
@@ -135,3 +135,44 @@ void unsharp_mask() {
 ![image](https://user-images.githubusercontent.com/50229148/107519003-0892de80-6bf3-11eb-96cb-a163c3982363.png)
 ![image](https://user-images.githubusercontent.com/50229148/107519030-12b4dd00-6bf3-11eb-8db9-63a86a01e51a.png)
 ![image](https://user-images.githubusercontent.com/50229148/107519050-1a748180-6bf3-11eb-831f-49bb2759c2c9.png)
+## 7.4 Noise filtering (잡음 제거 필터링)!
+* computer vision의 전처리 과정으로 잡음 제거 필터를 사용한다.
+* f(x,y)(영상신호) = s(x,y)(원본신호) + n(x,y)(잡음신호)
+* 잡음이 생성되는 방식을 잡음 모델이라 하며, 가장 대표적인 것은 Gaussian 잡음 모델이다.
+* **OpenCV 함수를 이용하여 가우시안 모델을 따르는 잡음을 인위적으로 추가할 수 있다**
+> **void randn(InputArray dst, InputArray mean, InputArray stddev);
+  * dst : Gaussian 난수로 채워질 행렬
+  * mean : Gaussian 분포 평균
+  * stddev : Gaussian 분표 표준 편차
+  * **표준 편차가 작을수록 noise존재 확률 구간이 작아지므로 잡음에 의한 픽셀 값 변화가 적다고 생각할 수 있다**
+<pre><code>
+void noise_gaussian()
+{
+	Mat src = imread("lenna.bmp", IMREAD_GRAYSCALE);
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	imshow("src", src);
+
+	for (int stddev = 10; stddev <= 30; stddev += 10) {
+		Mat noise(src.size(), CV_32SC1);
+		randn(noise, 0, stddev);
+
+		Mat dst;
+		add(src, noise, dst, Mat(), CV_8U);
+
+		String desc = format("stddev = %d", stddev);
+		putText(dst, desc, Point(10, 30), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255), 1, LINE_AA);
+		imshow("dst", dst);
+		waitKey();
+	}
+
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/107521106-7fc97200-6bf5-11eb-87f0-34d36781cc6b.png)
+![image](https://user-images.githubusercontent.com/50229148/107521257-abe4f300-6bf5-11eb-9438-0b51d885d620.png)
+![image](https://user-images.githubusercontent.com/50229148/107521273-b2736a80-6bf5-11eb-8f29-426d519237db.png)
+ 
