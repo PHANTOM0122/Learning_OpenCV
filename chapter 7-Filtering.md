@@ -67,3 +67,13 @@ void blurring_mean() {
 ![image](https://user-images.githubusercontent.com/50229148/107512328-04ae8e80-6bea-11eb-9c6f-6f38939cfe40.png)
 ![image](https://user-images.githubusercontent.com/50229148/107512352-0f692380-6bea-11eb-83a8-18ef36fd2a12.png)
 ![image](https://user-images.githubusercontent.com/50229148/107512376-17c15e80-6bea-11eb-9a80-87385897c025.png)
+### 7.2-2) Gaussian Filter
+* **평균값 필터보다 더 자연스러운 blurring 기법이다**
+> <code>**void GaussianBlur(Inputarray src, Outputarray dst, Size ksize, double sigmaX, double sigmaY, int boarderType = BORDER_DEFAULT)</code>**
+  * src : 입력영상
+  * dst : 출력영상
+  * ksize : Gaussian 커널의 크기. kisze.width,height은 0보다 큰 홀수여야한다. 
+  * sigmaX : x방향으로의 가우시안 커널 표준 편차
+  * sigmaY : y방향으로의 가우시안 커널 표준 편차
+  * borderType : 가장자리 픽셀 확장 방식
+<pre><code>
