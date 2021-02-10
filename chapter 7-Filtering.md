@@ -137,6 +137,7 @@ void unsharp_mask() {
 ![image](https://user-images.githubusercontent.com/50229148/107519050-1a748180-6bf3-11eb-831f-49bb2759c2c9.png)
 ## 7.4 Noise filtering (잡음 제거 필터링)!
 * computer vision의 전처리 과정으로 잡음 제거 필터를 사용한다.
+#### 7.4-1) 영상과 잡음 모델
 * f(x,y)(영상신호) = s(x,y)(원본신호) + n(x,y)(잡음신호)
 * 잡음이 생성되는 방식을 잡음 모델이라 하며, 가장 대표적인 것은 Gaussian 잡음 모델이다.
 * **OpenCV 함수를 이용하여 가우시안 모델을 따르는 잡음을 인위적으로 추가할 수 있다**
@@ -175,4 +176,37 @@ void noise_gaussian()
 ![image](https://user-images.githubusercontent.com/50229148/107521106-7fc97200-6bf5-11eb-87f0-34d36781cc6b.png)
 ![image](https://user-images.githubusercontent.com/50229148/107521257-abe4f300-6bf5-11eb-9438-0b51d885d620.png)
 ![image](https://user-images.githubusercontent.com/50229148/107521273-b2736a80-6bf5-11eb-8f29-426d519237db.png)
- 
+#### 7.4-2) 양방향 필터
+* pixel값이 급격히 변하는 edge근방에 gaussian filter가 적용되는 경우 잡음뿐만 아니라 edge도 함께 감소하게 된다. -> 윤곽도 같이 흐려짐
+* **양방향 필터는 에지 성분은 그대로 유지하면서 가우시안 잡음을 효과적으로 제거하는 알고리즘**
+* 모든 픽셀 위치에서 주변 픽셀과의 밝기 차이에 의한 고유의 필터 마스크 행렬을 만들어서 마스크 연산을 수행 -> 가우시안보다 연산량이 훨씬 많음
+> <code>**void bilateralFilter(Inputarray src, Outputarray dst, int d, double sigmaColor, double sigmaSpace, int boarderType = BORDER_DEFAULT)</code>**
+  * d : filtering에 사용할 이웃 픽셀과의 거리. 양수가 아닌 값을 지정하면 sigmaspace로부터 자동 계산
+  * sigmaColor : 색 공간에서의 가우시안 필터 표준 편차
+  * sigmaSpace : 좌표 공간에서의 가우시안 필터 표준 편차. 값이 클수록 더 많은 주변 픽셀 고려!
+  * boarderType : 가장자리 픽셀 확장 방식
+<pre><code>
+void filter_median()
+{
+	Mat src = imread("lenna.bmp", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;}
+	int num = (int)(src.total() * 0.1);
+	for (int i = 0; i < num; i++) {
+		int x = rand() % src.cols;
+		int y = rand() % src.rows;
+		src.at<uchar>(y, x) = (i % 2) * 255;
+	}
+	Mat dst1;
+	GaussianBlur(src, dst1, Size(), 1);
+	Mat dst2;
+	medianBlur(src, dst2, 3);
+	imshow("src", src);
+	imshow("dst1", dst1);
+	imshow("dst2", dst2);
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/107524436-1d727080-6bf9-11eb-9a04-f765fbbee38a.png)
+
