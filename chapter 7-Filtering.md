@@ -76,7 +76,7 @@ void blurring_mean() {
   * sigmaX : x방향으로의 가우시안 커널 표준 편차
   * sigmaY : y방향으로의 가우시안 커널 표준 편차. sigmaY = 0이면 sigmaX와 같은 값을 사용한다.
   * borderType : 가장자리 픽셀 확장 방식
-  * **표준 편차가 클수록 분산이 되어있다**
+  * **표준 편차가 클수록 분산이 되어있다 -> 영상이 더욱 부드럽게 된다**
 <pre><code>
 void blurring_gaussian() {
 	Mat src = imread("rose.bmp", IMREAD_GRAYSCALE);
