@@ -100,3 +100,11 @@ void blurring_gaussian() {
 ![image](https://user-images.githubusercontent.com/50229148/107513804-1c871200-6bec-11eb-94e2-278de1fba85d.png)
 ![image](https://user-images.githubusercontent.com/50229148/107513825-26107a00-6bec-11eb-9136-6d139fe23f68.png)
 ![image](https://user-images.githubusercontent.com/50229148/107513854-2f99e200-6bec-11eb-8240-7f5e1d8bbb40.png)
+## 7.2 영상의 Sharpening : 영상 날카롭게 하기!
+* **샤프닝은 초점이 잘 맞은 사진처럼 사물의 윤곽이 뚜렷하고 선명한 느낌이 나도록 영상을 변경하는 필터링 기법**
+#### 7.3-1) Unsharp mask filter
+* Sharpening을 위해서는 영상의 edge 근방에서 pixel의 명암비가 커지도록 수정해야 한다.
+* **Sharpening을 위해서는 blurring된 영상을 사용해야 한다**
+> **h(x,y) = f(x,y) + alpha * (f(x,y) - f'(x,y)) // f' : blurring된 영상**
+* alpha(가중치) 영상에 따라 영상의 날카로운 정도를 조절 가능하다
+* f(x,y) - f'(x,y) -> edge가 강조된다.
