@@ -209,4 +209,12 @@ void filter_median()
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/107524436-1d727080-6bf9-11eb-9a04-f765fbbee38a.png)
+#### 7.4-3) Median-filter
+* **미디안 필터는 입력 영상에서 자기 자신, 주변 픽셀 값 중에서 중간값을 선택하여 결과 영상 픽셀값으로 설정한다**
+* 특히 잡음 픽셀값이 주변 픽셀 값과 큰 차이가 있는 경우에 효과적으로 동작
+> <code>**void bilateralFilter(Inputarray src, Outputarray dst, int d, double sigmaColor, double sigmaSpace, int boarderType = BORDER_DEFAULT)</code>**
+  * d : filtering에 사용할 이웃 픽셀과의 거리. 양수가 아닌 값을 지정하면 sigmaspace로부터 자동 계산
+  * sigmaColor : 색 공간에서의 가우시안 필터 표준 편차
+  * sigmaSpace : 좌표 공간에서의 가우시안 필터 표준 편차. 값이 클수록 더 많은 주변 픽셀 고려!
+![image](https://user-images.githubusercontent.com/50229148/107526343-18aebc00-6bfb-11eb-89cc-faa34ed438f0.png)
 
