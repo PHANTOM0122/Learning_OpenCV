@@ -133,6 +133,5 @@ void unsharp_mask() {
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/107518982-ff097680-6bf2-11eb-9a7a-c0694b2bf32d.png)
 ![image](https://user-images.githubusercontent.com/50229148/107519003-0892de80-6bf3-11eb-96cb-a163c3982363.png)
-![image](https://user-images.githubusercontent.com/50229148/107519003-0892de80-6bf3-11eb-96cb-a163c3982363.png)
 ![image](https://user-images.githubusercontent.com/50229148/107519030-12b4dd00-6bf3-11eb-8db9-63a86a01e51a.png)
 ![image](https://user-images.githubusercontent.com/50229148/107519050-1a748180-6bf3-11eb-831f-49bb2759c2c9.png)
