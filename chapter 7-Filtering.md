@@ -74,6 +74,29 @@ void blurring_mean() {
   * dst : 출력영상
   * ksize : Gaussian 커널의 크기. kisze.width,height은 0보다 큰 홀수여야한다. 
   * sigmaX : x방향으로의 가우시안 커널 표준 편차
-  * sigmaY : y방향으로의 가우시안 커널 표준 편차
+  * sigmaY : y방향으로의 가우시안 커널 표준 편차. sigmaY = 0이면 sigmaX와 같은 값을 사용한다.
   * borderType : 가장자리 픽셀 확장 방식
+  * **표준 편차가 클수록 분산이 되어있다**
 <pre><code>
+void blurring_gaussian() {
+	Mat src = imread("rose.bmp", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+	imshow("src", src);
+	Mat dst;
+	for (int sigma = 1; sigma <= 5; sigma++) {
+		GaussianBlur(src, dst, Size(0, 0), (double)sigma);
+		String desc = format("Guassian: %d", sigma);
+		putText(dst, desc, Point(10, 30), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255), 1, LINE_AA);
+		imshow("dst", dst);
+		waitKey();
+	}
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/107513745-00837080-6bec-11eb-92e4-e83fd992ac4d.png)
+![image](https://user-images.githubusercontent.com/50229148/107513774-0f6a2300-6bec-11eb-9a16-d7d6f1087ed2.png)
+![image](https://user-images.githubusercontent.com/50229148/107513804-1c871200-6bec-11eb-94e2-278de1fba85d.png)
+![image](https://user-images.githubusercontent.com/50229148/107513825-26107a00-6bec-11eb-9136-6d139fe23f68.png)
+![image](https://user-images.githubusercontent.com/50229148/107513854-2f99e200-6bec-11eb-8240-7f5e1d8bbb40.png)
