@@ -63,7 +63,7 @@ void blurring_mean() {
 		waitKey();
 	}
 	destroyAllWindows();
-}</
+}</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/107512328-04ae8e80-6bea-11eb-9c6f-6f38939cfe40.png)
 ![image](https://user-images.githubusercontent.com/50229148/107512352-0f692380-6bea-11eb-83a8-18ef36fd2a12.png)
 ![image](https://user-images.githubusercontent.com/50229148/107512376-17c15e80-6bea-11eb-9a80-87385897c025.png)
