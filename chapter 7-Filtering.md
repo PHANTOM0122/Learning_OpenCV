@@ -72,7 +72,7 @@ void blurring_mean() {
 > <code>**void GaussianBlur(Inputarray src, Outputarray dst, Size ksize, double sigmaX, double sigmaY, int boarderType = BORDER_DEFAULT)</code>**
   * src : 입력영상
   * dst : 출력영상
-  * ksize : Gaussian 커널의 크기. kisze.width,height은 0보다 큰 홀수여야한다. 
+  * ksize : Gaussian 커널의 크기. kisze.width,height은 0보다 큰 홀수여야한다. Size()이면 자동으로 커널 크기를 결정한다
   * sigmaX : x방향으로의 가우시안 커널 표준 편차
   * sigmaY : y방향으로의 가우시안 커널 표준 편차. sigmaY = 0이면 sigmaX와 같은 값을 사용한다.
   * borderType : 가장자리 픽셀 확장 방식
@@ -105,6 +105,34 @@ void blurring_gaussian() {
 #### 7.3-1) Unsharp mask filter
 * Sharpening을 위해서는 영상의 edge 근방에서 pixel의 명암비가 커지도록 수정해야 한다.
 * **Sharpening을 위해서는 blurring된 영상을 사용해야 한다**
-> **h(x,y) = f(x,y) + alpha * (f(x,y) - f'(x,y)) // f' : blurring된 영상**
+> **h(x,y) = f(x,y) + alpha * (f(x,y) - f'(x,y)) = (1+alpha)f(x,y) - alpha*f'(x,y) // f' : blurring된 영상**
 * alpha(가중치) 영상에 따라 영상의 날카로운 정도를 조절 가능하다
 * f(x,y) - f'(x,y) -> edge가 강조된다.
+<pre><code>
+void unsharp_mask() {
+	Mat src = imread("rose.bmp", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+	imshow("src", src);
+
+	for (int sigma = 1; sigma <= 5; sigma++) {
+		Mat blurred;
+		GaussianBlur(src, blurred, Size(), sigma);
+		
+		float alpha = 1.f;
+		Mat dst = (1 + alpha) * src - alpha * blurred;
+
+		String desc = format("sigma: %d", sigma);
+		putText(dst, desc, Point(10, 30), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255), 1, LINE_AA);
+		imshow("dst", dst);
+		waitKey();
+	}
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/107518982-ff097680-6bf2-11eb-9a7a-c0694b2bf32d.png)
+![image](https://user-images.githubusercontent.com/50229148/107519003-0892de80-6bf3-11eb-96cb-a163c3982363.png)
+![image](https://user-images.githubusercontent.com/50229148/107519003-0892de80-6bf3-11eb-96cb-a163c3982363.png)
+![image](https://user-images.githubusercontent.com/50229148/107519030-12b4dd00-6bf3-11eb-8db9-63a86a01e51a.png)
+![image](https://user-images.githubusercontent.com/50229148/107519050-1a748180-6bf3-11eb-831f-49bb2759c2c9.png)
