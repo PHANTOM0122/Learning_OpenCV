@@ -14,6 +14,7 @@ Filtering
 * **대각선 방향으로 픽셀 값이 급격하게 변하는 부분에서 결과 영상 픽셀 값이 0보다 훨씬 크거나 훨씬 작은 값을 가지게 된다.**
 * **평탄한 영역에선 픽셀값이 0에 가까운 값을 가지게 됩니다**
 * 음수값은 포화 연산에 의해 0이 되어버리므로, 보통 **delta = 128을 더하는 것이 보기에 좋다**
+* 아래와 같이 장미꽃 경계부분은 입체감있게, 완만하게 바뀌는 곳은 128로 가까운 회색으로 표현
 <pre><code>
 void filter_embossing()
 {
@@ -33,3 +34,5 @@ void filter_embossing()
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/107510240-00cd3d00-6be7-11eb-9bca-73f74803eba4.png)
+## 7.2 영상의 블러링 : 영상 부드럽게 하기!
+
