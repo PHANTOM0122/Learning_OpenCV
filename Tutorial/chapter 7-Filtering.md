@@ -186,25 +186,26 @@ void noise_gaussian()
   * sigmaSpace : 좌표 공간에서의 가우시안 필터 표준 편차. 값이 클수록 더 많은 주변 픽셀 고려!
   * boarderType : 가장자리 픽셀 확장 방식
 <pre><code>
-void filter_median()
-{
+void filter_bilateral() {
 	Mat src = imread("lenna.bmp", IMREAD_GRAYSCALE);
 	if (src.empty()) {
 		cerr << "Image load failed!" << endl;
-		return;}
-	int num = (int)(src.total() * 0.1);
-	for (int i = 0; i < num; i++) {
-		int x = rand() % src.cols;
-		int y = rand() % src.rows;
-		src.at<uchar>(y, x) = (i % 2) * 255;
+		return;
 	}
+
+	Mat noise(src.size(), CV_32SC1);
+	randn(noise, 0, 5);
+	add(src, noise, src, Mat(), CV_8U);
+
 	Mat dst1;
-	GaussianBlur(src, dst1, Size(), 1);
+	GaussianBlur(src, dst1, Size(), 5);
+
 	Mat dst2;
-	medianBlur(src, dst2, 3);
-	imshow("src", src);
-	imshow("dst1", dst1);
-	imshow("dst2", dst2);
+	bilateralFilter(src, dst2, -1, 10, 5);
+
+	imshow("GaussianBlur", dst1);
+	imshow("bilateralFilter", dst2);
+
 	waitKey();
 	destroyAllWindows();
 }</code></pre>
