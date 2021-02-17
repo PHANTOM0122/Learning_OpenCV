@@ -137,3 +137,24 @@ void affine_shear()
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108228312-15c74480-7182-11eb-9c4e-e569a212b5ed.png)
+### 8.1-4) 크기 변환
+* **영상의 전체적인 크기를 확대 또는 축소**
+* sx or sy > 1이면 영상 확대 / < 1이면 영상 축소
+
+![image](https://user-images.githubusercontent.com/50229148/108232983-ac960000-7186-11eb-9f41-31a877006756.png)
+
+![image](https://user-images.githubusercontent.com/50229148/108233141-d4856380-7186-11eb-9f77-5d93839201ad.png)
+#### resize() 함수를 통한 영상 크기 조정
+> **void resize(InputArray src, OutputArray dst, Size dsize, double fx = 0; double fy = 0; int interpolation = INTER_LINEAR);**
+* dsize : 출력 영상 크기
+* fx : x축 방향으로의 크기 변환 비율. dsizedp Size()를 지정한 경우에 사용.
+* fy : y축 방향으로의 크기 변환 비율. dsizedp Size()를 지정한 경우에 사용.
+* interpolation: 보간법 지정. 
+열거형 상수 설명
+1. INTER_NEAREST	최근방 이웃 보간법 - 가장 빠르게 동작하지만 화질이 안좋음
+2. INTER_LINEAR		양선형 보간법 - 속도기 빠르고 화질도 좋아서 널리 활용
+3. INTER_CUBIC		3차 보간법 - 화질에 focus
+4. INTER_AREA		픽셀 영역 리샘플링 - 축소시 무아래 현상이 적게 발생하여 화질에 좋음
+5. INTER_LANCZOS4	8×8 이웃 픽셀을 사용하는 란초스(Lanczos 보간법) - 화질에 focus
+#### Example) 다양한 보건법을 이용한 영상 확대 결과 비교
+<pre><code>
