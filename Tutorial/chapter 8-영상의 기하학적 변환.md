@@ -158,3 +158,29 @@ void affine_shear()
 5. INTER_LANCZOS4	8×8 이웃 픽셀을 사용하는 란초스(Lanczos 보간법) - 화질에 focus
 #### Example) 다양한 보건법을 이용한 영상 확대 결과 비교
 <pre><code>
+void affine_scale()
+{
+	Mat src = imread("rose.bmp");
+
+	if (src.empty()) {
+		cerr << "Image load failed" << endl;
+		return;
+	}
+
+	Mat dst1, dst2, dst3, dst4;
+	resize(src, dst1, Size(), 4, 4, INTER_NEAREST); // x,y 비율 4배 확대
+	resize(src, dst2, Size(1920, 1280)); // Size()를 이용한 4배 확대
+	resize(src, dst3, Size(1920, 1280), 0, 0, INTER_CUBIC); // 3차 보간법
+	resize(src, dst4, Size(1920, 1280), 0, 0, INTER_LANCZOS4); // 란초스 보간법
+
+
+	imshow("src", src);
+	imshow("dst1", dst1(Rect(400,500,400,400)));
+	imshow("dst2", dst2(Rect(400, 500, 400, 400)));
+	imshow("dst3", dst3(Rect(400, 500, 400, 400)));
+	imshow("dst4", dst4(Rect(400, 500, 400, 400)));
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108235046-ccc6be80-7188-11eb-89ec-9dacb1b1352e.png)
