@@ -104,10 +104,36 @@ void affine_translation()
 * **직사각형 형태의 영상을 한쪽 방향으로 밀어서 평행사변형 모양으로 변형되는 변환**
 * 전단 변환은 픽셀이 어느 위치에 있는가에 따라 이동 정도가 달라진다.
 * **x좌표가 증가함에 따라 영상이 조금씩 세로 방향으로 이동하는 변환의 수식은 다음과 같다**
-* 
+
 ![image](https://user-images.githubusercontent.com/50229148/108226687-7786af00-7180-11eb-99f9-bd7bb529fcc0.png)
 * **y좌표가 증가함에 따라 영상이 조금씩 가로 방향으로 이동하는 변환의 수식은 다음과 같다**
-* 
+
 ![image](https://user-images.githubusercontent.com/50229148/108226848-9b49f500-7180-11eb-9c1d-759a142ed31b.png)
 
 ![image](https://user-images.githubusercontent.com/50229148/108227024-cc2a2a00-7180-11eb-8df9-34e3d77ad824.png)
+#### Example) 영상 y좌표가 증가함에 따라 x좌표에서 0.3y만큼 밀린 원본 영상 픽셀이 나타나기 시작하는 진단변환
+<pre><code>
+void affine_shear()
+{
+	Mat src = imread("tekapo.bmp");
+
+	if (src.empty()) {
+		cerr << "Image load failed" << endl;
+		return;
+	}
+
+	double mx = 0.3;
+	// y좌표가 증가함에 따라 0.3y에 해당하는 x좌표에서 원본 영상 픽셀이 나타남
+	Mat M = Mat_<double>({ 2,3 }, { 1,mx,0,0,1,0 });
+
+	Mat dst;
+	// 전단 변환에 의해 짤리지 않도록 가로 크기를 cvRound 이용하여 조절
+	warpAffine(src, dst, M, Size(cvRound(src.cols + src.rows * mx), src.rows));
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108228312-15c74480-7182-11eb-9c4e-e569a212b5ed.png)
