@@ -104,7 +104,10 @@ void affine_translation()
 * **직사각형 형태의 영상을 한쪽 방향으로 밀어서 평행사변형 모양으로 변형되는 변환**
 * 전단 변환은 픽셀이 어느 위치에 있는가에 따라 이동 정도가 달라진다.
 * **x좌표가 증가함에 따라 영상이 조금씩 세로 방향으로 이동하는 변환의 수식은 다음과 같다**
+* 
 ![image](https://user-images.githubusercontent.com/50229148/108226687-7786af00-7180-11eb-99f9-bd7bb529fcc0.png)
 * **y좌표가 증가함에 따라 영상이 조금씩 가로 방향으로 이동하는 변환의 수식은 다음과 같다**
+* 
 ![image](https://user-images.githubusercontent.com/50229148/108226848-9b49f500-7180-11eb-9c1d-759a142ed31b.png)
+
 ![image](https://user-images.githubusercontent.com/50229148/108227024-cc2a2a00-7180-11eb-8df9-34e3d77ad824.png)
