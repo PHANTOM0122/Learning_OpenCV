@@ -72,5 +72,32 @@ void affine_transform()
 ![image](https://user-images.githubusercontent.com/50229148/108209648-e4447e00-716d-11eb-8bee-9f364457e7fe.png)
 ## 8.2) 이동 변환
 * **영상을 가로 또는 세로 방향으로 일정 크기만큼 이동시키는 연산을 의미하며 시프트 연산이라고도 한다**
-* 영상을 x방향으로 a, y방향으로 b만큼 이동시키는 어파인 변환 행렬 M은 아래와 같다
+* 영상을 x방향으로 a, y방향으로 b만큼 이동시키는 어파인 변환 행렬은 아래와 같다
+
 ![image](https://user-images.githubusercontent.com/50229148/108223894-a94a4680-717d-11eb-8c70-a7467007d843.png)
+
+#### 영상을 가로 150 세로 100 pixel만큼 이동시키는 이동변환 code
+<pre><code>
+void affine_translation()
+{
+	Mat src = imread("tekapo.bmp");
+
+	if (src.empty()) {
+		cerr << "Image load failed" << endl;
+		return;
+	}
+
+	// 가로로 150 pix, 세로로 100 pix 만큼 이동 
+	Mat M = Mat_<double>({ 2,3 }, { 1,0,150,0,1,100 });
+
+	Mat dst;
+	warpAffine(src, dst, M, Size());
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108224868-b451a680-717e-11eb-8d8a-70d6a38b276f.png)
+
