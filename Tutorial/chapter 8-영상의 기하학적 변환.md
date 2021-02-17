@@ -70,3 +70,7 @@ void affine_transform()
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108209648-e4447e00-716d-11eb-8bee-9f364457e7fe.png)
+## 8.2) 이동 변환
+* **영상을 가로 또는 세로 방향으로 일정 크기만큼 이동시키는 연산을 의미하며 시프트 연산이라고도 한다**
+* 영상을 x방향으로 a, y방향으로 b만큼 이동시키는 어파인 변환 행렬 M은 아래와 같다
+![image](https://user-images.githubusercontent.com/50229148/108223894-a94a4680-717d-11eb-8c70-a7467007d843.png)
