@@ -15,6 +15,12 @@ Mat getAffineTransform(InputArray src, InputArray dst);
 * src: 입력 영상에서의 3점의 좌표
 * dst: 결과 영상에서의 3점의 좌표
 * 반환값: 2x3어파인 행렬. CV_64FC1
+* > **transform (영상 전체를 사용않고 일부 점들이 어디로 이동하는지 구하는 함수)**
+<pre><code>
+void transform(InputArray src, OutputArray dst, InputArray m);</code></pre>
+* src: 입력 행렬 또는 vector<point2f>점의 좌표를 다채널로 표현
+* dst: 출력 행렬 또는 vector<Point2f>
+* m: 변환 행렬. 2x2 or 2x3 실수형 행렬.
 > **warpAffine (어파인 변환된 영상을 구하는 함수)**
 <pre><code>
 void warpAffine(InputArray src, OutputArray dst, InputArray M, Size dsize, int flags = INTER_LINEAR, 
@@ -51,6 +57,11 @@ void affine_transform()
 
 	Mat dst;
 	warpAffine(src, dst, M, Size());
+	
+	//transform
+	vector<Point2f> src = {Point2f(100,20) , Point2f(200,50)};
+	vector<Point2f> dst;
+	transform(src,dst,M);
 
 	imshow("src", src);
 	imshow("dst", dst);
