@@ -329,5 +329,7 @@ void on_mouse(int event, int x, int y, int flags, void* userdata) {
 
 ![image](https://user-images.githubusercontent.com/50229148/108309897-c884ba80-71f5-11eb-9af6-2a2afdfa8ff0.png)
 ![image](https://user-images.githubusercontent.com/50229148/108309943-dfc3a800-71f5-11eb-8c59-00e315f2aadc.png)
-
-
+#### perspectiveTransform()함수
+* **투시 변환 행렬을 알고 있을 때, src점들이 어디로 이동할지 알려주는 함수**
+**void perspectiveTransform(InputArray src, OutputArray dst, InputArray m)**
+* m : 변환 행렬. 3x3 or 4X4 실수 행렬
