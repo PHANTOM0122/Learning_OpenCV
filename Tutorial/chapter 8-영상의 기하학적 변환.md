@@ -265,5 +265,69 @@ void affine_filp() {
 ![image](https://user-images.githubusercontent.com/50229148/108307875-08e23980-71f2-11eb-9826-8a6e52ee9f9b.png)
 
 > **getPerspectiveTransform()함수를 이용한 투시 변환 행렬 구하기**
-*
-**Mat
+  * **src에 저장된 4점을 dst 좌표로 옮기는 투시 변환 행렬**
+  **Mat getPerspectiveTransform(const Point2f src[], const Point2f dst[], int solveMethod = DECOMP_LU);**
+  **Mat getPerspectiveTransform(InputArray src, InputArray dst, int solvedMethod = DECOMP_LU);**
+  * solvedMethod : 계산 방법 지정
+  * 반환값 : 3x3 크기의 투시 변환 행렬
+> **void warpPerspective(InputArray src, OutputArray dst, InputArray M, Size dsize, int flags = BOADER_CONSTANT, const Scalar& borderValue = Scalar());**
+  * M : 3X3 투시 변환 행렬
+  * dsize : 결과 영상의 크기
+  * flags : 보간법 알고리즘. Warp_inverse_map 을 함께 지정하면 역방향 변환
+  * borderMode : 가장 자리 픽셀 확장 방식. Boarder_transperent를 지정하면 입력 영상의 픽셀 값이 복사되지 않는 영역은 dst 픽셀 값 그대로 유지
+  * borderValue : borederMode가 Boader_constant일때 사용할 상수 값. 기본적으로 검은색 지정
+#### Exmaple) 마우스로 카드 모서리 좌표를 시계방향으로 선택하면 반듯한 직사각형 형태로 투시 변환
+<pre><code>
+Mat src;
+Point2f srcQuad[4], dstQuad[4];
+
+void on_mouse(int event, int x, int y, int flags, void* userdata);
+
+int main() {
+	src = imread("card.bmp");
+	if (src.empty()) {
+		cerr << "Image load failed" << endl;
+		return -1;
+	}
+
+	namedWindow("src");
+	setMouseCallback("src", on_mouse);
+
+	imshow("src", src);
+	waitKey();
+	
+	return 0;
+}
+
+void on_mouse(int event, int x, int y, int flags, void* userdata) {
+
+	static int cnt = 0;
+	if (event == EVENT_LBUTTONDOWN) { // 마우스 왼쪽 버튼을 클릭할 때만 처리
+		if (cnt < 4) {
+			srcQuad[cnt++] = Point2f(x, y); // left마우스 클릭 지점 좌표 저장
+
+			circle(src, Point(x, y), 5, Scalar(0, 0, 255), -1); // x,y 중심으로 반지름 5 빨간원 표시
+			imshow("src", src);
+
+			if (cnt == 4) {
+				int w = 200, h = 300;
+				dstQuad[0] = Point2f(0, 0);
+				dstQuad[1] = Point2f(w-1, 0);
+				dstQuad[2] = Point2f(w-1, h-1);
+				dstQuad[3] = Point2f(0, h-1);
+
+				Mat pers = getPerspectiveTransform(srcQuad, dstQuad);
+
+				Mat dst;
+				warpPerspective(src, dst, pers, Size(w, h));
+				imshow("dst", dst);
+			}
+		}
+	}
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108309868-be62bc00-71f5-11eb-835c-6b8071ab6a4d.png)
+
+![image](https://user-images.githubusercontent.com/50229148/108309897-c884ba80-71f5-11eb-9af6-2a2afdfa8ff0.png)
+![image](https://user-images.githubusercontent.com/50229148/108309943-dfc3a800-71f5-11eb-8c59-00e315f2aadc.png)
+
+
