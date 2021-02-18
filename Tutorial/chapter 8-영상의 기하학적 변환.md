@@ -220,3 +220,40 @@ void affine_rotation() {
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108304734-fc5ae280-71eb-11eb-976a-73211d41c801.png)
+### 8.1-6) 대칭 변환
+* 상하/좌우 대칭 -> 출력 영상은 입력 영상과의 pixel이 1:1 대응이 되므로 보간법이 필요하지 않다
+* 좌우대칭
+![image](https://user-images.githubusercontent.com/50229148/108306254-22ce4d00-71ef-11eb-9d47-32e672db1241.png)
+
+* 상하대칭
+![image](https://user-images.githubusercontent.com/50229148/108306260-26fa6a80-71ef-11eb-8bad-0abb2f0380af.png)
+#### flip() 함수를 이용한 회전변환
+> **void flip(InputArray src, OutputArray dst, int flipcode)**
+  * **flipcode: 양수이면 좌우, 0이면 상하, 음수이면 좌우/상하 대칭 모두 수행(=180도 회전)**
+<pre><code>
+void affine_filp() {
+	Mat src = imread("eastsea.bmp");
+	
+	if (src.empty()) {
+		cerr << "Image load failed" << endl;
+		return;
+	}
+
+	imshow("src", src);
+
+	Mat dst;
+	int flipcode[] = { -1,0,1 };
+	for (int i = 0; i < 3; i++) {
+		flip(src, dst, flipcode[i]);
+
+		String desc = format("flipcode: %d", flipcode[i]);
+		putText(dst, desc, Point(10, 30), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255,0,0), 1, LINE_AA);
+
+		imshow("dst", dst);
+		waitKey();
+	}
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108306074-c4a16a00-71ee-11eb-9351-985930c0164b.png)
+![image](https://user-images.githubusercontent.com/50229148/108306112-dbe05780-71ee-11eb-9aba-0758e390a635.png)
+![image](https://user-images.githubusercontent.com/50229148/108306098-d2ef8600-71ee-11eb-952e-4a73dfe919e3.png)
