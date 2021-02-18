@@ -257,3 +257,13 @@ void affine_filp() {
 ![image](https://user-images.githubusercontent.com/50229148/108306074-c4a16a00-71ee-11eb-9351-985930c0164b.png)
 ![image](https://user-images.githubusercontent.com/50229148/108306112-dbe05780-71ee-11eb-9aba-0758e390a635.png)
 ![image](https://user-images.githubusercontent.com/50229148/108306098-d2ef8600-71ee-11eb-952e-4a73dfe919e3.png)
+## 8.2) 투시 변환(Perspective Transform)
+* **투시 변환은 직사각형 형태의 영상을 임의의 볼록 사각형으로 변경할 수 있는 변환**
+* 투시 변환에 의한 영상은 직선성은 유지되나 평행성은 깨질 수 있다
+* **점 4개의 정보로 투시 변환의 방정식 8개를 얻어 투시 변환 행렬을 구할 수 있다**
+
+![image](https://user-images.githubusercontent.com/50229148/108307875-08e23980-71f2-11eb-9826-8a6e52ee9f9b.png)
+
+> **getPerspectiveTransform()함수를 이용한 투시 변환 행렬 구하기**
+*
+**Mat
