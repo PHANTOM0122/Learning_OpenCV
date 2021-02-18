@@ -184,3 +184,39 @@ void affine_scale()
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108235046-ccc6be80-7188-11eb-89ec-9dacb1b1352e.png)
+### 8.1-5) 회전 변환
+* **특정 좌표를 기준으로 영상을 원하는 각도만큼 회전하는 변환**
+* 아래는 원점을 기준으로 반시계 방향으로 영상을 회전하는 어파인 변환 행렬
+
+![image](https://user-images.githubusercontent.com/50229148/108304408-53ac8300-71eb-11eb-82af-cb1a01ffefa8.png)
+
+![image](https://user-images.githubusercontent.com/50229148/108304353-35df1e00-71eb-11eb-9487-167284ca0db1.png)
+#### getRotationMatrix2D() 함수를 이용한 회전변환
+* **원점이 아닌 특정 좌표를 기준으로 회전시키거나 크기 변환까지 같이 해주는 함수**
+> **Mat getRotationMatrix2D(Point2f center, double angle, double scale)**
+  * center : 회전 중심 좌표
+  * angle : 회전 각
+  * scale : 회전후 추가적으로 확대/축소 시킬 비율. 크기를 유지하기 위해서는 1
+  * return : 2X3 Affine matrix
+<pre><code>
+void affine_rotation() {
+	Mat src = imread("tekapo.bmp");
+
+	if (src.empty()) {
+		cerr << "Image load failed" << endl;
+		return;
+	}
+
+	Point2f cp(src.cols / 2.f, src.rows / 2.f);
+	Mat M = getRotationMatrix2D(cp, 20, 1); // Rotate 20 degree. same Size!
+
+	Mat dst;
+	warpAffine(src, dst, M, Size());
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108304734-fc5ae280-71eb-11eb-976a-73211d41c801.png)
