@@ -177,3 +177,19 @@ void houghline_segments() {
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108456400-96399280-72b3-11eb-9799-25e675984847.png)
+### 9.2-2) 허프 변환 원 검출
+Step1) **원의 중심 좌표를 찾는다(이 과정에서 축적배열 사용. 원주상의 모든 점에서 그래디언트 방향으로 직선. 원의 중심 부근 축적 값 high)**
+Step2) **적합한 반지름을 구한다(center구한 후 원주상에 충분한 edge가 있는지 확인하고 결정)**
+>**HoughCircles() 함수를 이용한 허프 변환 원 검출 수행**
+**void HoughCircles(InputArray image, OutputArray circles, int method, double dp, double minDist, double param1=100, double param2=100, int minRadius = 0, int maxRadious = 0)**
+* image: 8비트 단일 채널 입력 영상. **에지 영상이 아닌 원본 grayscale영상 사용!**
+* **circles: 원의 중심(x,y), 반지름, (축적배열누적값). 주로 < vec3f >, < vec4f > 자료형 변수를 지정**
+* method: Hough_Fradient만 지정 가능
+* dp: 입력 영상과 축적 배열의 크기 비율
+* minDist: 인접한 원 중심의 최소 거리
+* param1: Canny edge 검출기의 높은 임계값 (낮은 임계값은 param1의 절반값으로 사용)
+* param2: 축적 배열에서 원 검출을 위한 임계값
+* minRadius: 검출할 원의 최소 반지름
+* maxRadius: 검출할 원의 최대 반지름
+#### Example) 동전 검출!!
+
