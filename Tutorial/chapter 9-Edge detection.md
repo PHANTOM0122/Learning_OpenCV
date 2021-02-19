@@ -148,5 +148,32 @@ void houghlines() {
 * threshold: 축적 배열에서 직선으로 판단할 임계값
 * minLineLength: 검출할 선분의 최소 길이
 * maxLineGap: 직선으로 간주할 최대 에지 점 간격
+#### 직선 파라미터 정보를 이용하여 영상 위에 빨간색 선분을 그리는 예제 (위와 달리 선분!으로 표시)
+<pre><code>
+void houghline_segments() {
+	Mat src = imread("building.jpg", IMREAD_GRAYSCALE);
 
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+	Mat edge;
+	Canny(src, edge, 50, 150);
 
+	vector<Vec4i> lines; // 선분의 시작,끝점 x,y좌표 저장
+	HoughLinesP(edge, lines, 1, CV_PI / 180, 160, 50, 5);
+
+	Mat dst;
+	cvtColor(edge, dst, COLOR_GRAY2BGR);
+
+	for (Vec4i l : lines) {
+		line(dst, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0, 0, 255), 2, LINE_AA);
+	}
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108456400-96399280-72b3-11eb-9799-25e675984847.png)
