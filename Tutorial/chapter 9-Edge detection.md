@@ -99,6 +99,43 @@ void canny_edge() {
 * stn: 멀티스케일 허프 변환에서 theta해상도를 나누는 값
 * min_theta: 검출할 직선의 최소 theta 값
 * max_theta: 검출할 직선의 최대 theta 
+#### 직선 파라미터 정보를 이용하여 영상 위에 빨간색 직선을 그리는 예제
+<pre><code>
+void houghlines() {
+	Mat src = imread("building.jpg", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+	Mat edge;
+	Canny(src, edge, 50, 150);
+
+	vector<Vec2f> lines;
+	HoughLines(edge, lines, 1, CV_PI / 180, 250);
+
+	Mat dst;
+	cvtColor(edge, dst, COLOR_GRAY2BGR); // 3채널 컬려 영상으로 변환
+
+	// 반환하는 직선 정보를 이용하여 영상 위에 빨간색 직선을 그려 화면에 나타낸다
+	for (size_t i = 0; i < lines.size(); i++) {
+		float r = lines[i][0], t = lines[i][1];
+		double cos_t = cos(t), sin_t = sin(t);
+		double x0 = r * cos_t, y0 = r * sin_t; // x0, y0는 원점에서 직선에 수선을 내렸을 때 만나는 점. 
+		double alpha = 1000; // alpha 값이 충분히 커야 pt1, pt2가 영상의 밖에 존재
+
+		// pt1. pt2는 직선 영상을 그리기 위한 좌표
+		Point pt1(cvRound(x0 + alpha * (-sin_t)), cvRound(y0 + alpha * cos_t));
+		Point pt2(cvRound(x0 - alpha * (-sin_t)), cvRound(y0 - alpha * cos_t));
+
+		line(dst, pt1, pt2, Scalar(0, 0, 255), 2, LINE_AA);
+	}
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108454795-676ded00-72b0-11eb-9a33-b0416999d01e.png)
 
 
 
