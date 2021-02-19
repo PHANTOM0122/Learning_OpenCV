@@ -177,7 +177,7 @@ void houghline_segments() {
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108456400-96399280-72b3-11eb-9799-25e675984847.png)
-### 9.2-2) 허프 변환 원 검출
+### 9.2-3) 허프 변환 원 검출
 Step1) **원의 중심 좌표를 찾는다(이 과정에서 축적배열 사용. 원주상의 모든 점에서 그래디언트 방향으로 직선. 원의 중심 부근 축적 값 high)**
 Step2) **적합한 반지름을 구한다(center구한 후 원주상에 충분한 edge가 있는지 확인하고 결정)**
 >**HoughCircles() 함수를 이용한 허프 변환 원 검출 수행**
@@ -192,4 +192,33 @@ Step2) **적합한 반지름을 구한다(center구한 후 원주상에 충분�
 * minRadius: 검출할 원의 최소 반지름
 * maxRadius: 검출할 원의 최대 반지름
 #### Example) 동전 검출!!
+<pre><code>
+void houghcircles() {
+	Mat src = imread("coins.png", IMREAD_GRAYSCALE);
 
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	Mat blurred;
+	blur(src, blurred, Size(3, 3)); // 커널 크기 3
+
+	vector<Vec3f> circles;
+	HoughCircles(blurred, circles, HOUGH_GRADIENT, 1, 50, 150, 30);
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_GRAY2BGR);
+
+	for (Vec3f c : circles) {
+		Point center(cvRound(c[0]), cvRound(c[1]));
+		int radius = cvRound(c[2]);
+		circle(dst, center, radius, Scalar(0, 0, 255), 2, LINE_AA);
+	}
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108458076-347b2780-72b7-11eb-9b31-c26615152af8.png)
