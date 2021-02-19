@@ -55,4 +55,15 @@ void sobelEdge() {
 * **Edge가 두껍게 표현되는 것을 방지. 이것을 통해 가장 큰 위치의 픽셀만 에지로 판별**
 4) 이중 임계값을 이용한 히스테리시스 에지 트래킹
 * **2개의 임계값을 사용하여 strong edge, weak edge, not edge 구분. 이후 hystreisis판별을 통해 strong과 연결된 weak는 edge로, 연결되지 않은 weak는 not edge로 판별**
- 
+#### Canny()를 이용한 edge detection
+**void Canny(InputArray image, OutputArray edges, double threshold1, double threshold2, int apertureSize =3, bool L2gradient = false)**
+**void Canny(InputArray dx, InputArray dy, OutputArray edges, double threshold1, double threshold2, bool L2gradient)**
+* image: 8비트 입력 영상
+* dx: 입력영상의 x방향 미분 영상. cv_16sc1 or cv_16sc3
+* dy: 입력영상의 y방향 미분 영상. cv_16sc1 or cv_16sc3
+* edges: 출력 에지 영상. 입력 영상과 크기가 같은 8비트 단일 채널 영상
+* threshold1: hystreisis 에지 검출을 위한 임계값 1. 보통 낮은 임계값 지정
+* threshold2: hystreisis 에지 검출을 위한 임계값 2. 보통 높은 임계값 지정
+* appertureSize: gradient 계산을 위한 소벨 마스크 크기
+* L2gradient: 그래디언트 크기 계산 시 L2 노름을 사용하려면 true 지정. 이 값이 false이면 L1노름을 사용
+
