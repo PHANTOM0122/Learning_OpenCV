@@ -138,7 +138,8 @@ void houghlines() {
 ![image](https://user-images.githubusercontent.com/50229148/108454795-676ded00-72b0-11eb-9a33-b0416999d01e.png)
 ### 9.2-2) 확률적 허프 변환
 >**HoughLinesP() 함수를 이용한 허프 변환 선분 검출 수행**
-  * **직선의 시작점과 끝점을 반환 -> 선분을 검출한다**
+* **직선의 시작점과 끝점을 반환 -> 선분을 검출한다**
+ 
 **void HoughLines(InputArray image, OutputArray lines, double rho, double theta, int threshold, double minLineLength=0, double maxLineGap = 0)**
 * image: 8비트 단일 채널 입력 영상. 주로 에지 영상을 지정
 * **lines: 선분의 시작점과 끝점을 저장할 출력 벡터. 주로 < vec4i > 자료형 변수를 지정**
