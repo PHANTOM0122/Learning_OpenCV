@@ -86,4 +86,19 @@ void canny_edge() {
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108452755-65a22a80-72ac-11eb-98c5-46f92e817dc1.png)
+## 9.2) 직선 검출과 원 검출
+### 9.2-1) 허프 변환 직선 검출
+>**HoughLines() 함수를 이용한 허프 변환 직선 검출 수행**
+**void HoughLines(InputArray image, OutputArray lines, double rho, double theta, int threshold, double srn=0. double stn=0, double min_theth = 0, double max_theta = 0)**
+* image: 8비트 단일 채널 입력 영상. 주로 에지 영상을 지정
+* lines: 직선 정보(rho,theta)를 저장할 출력 벡터
+* rho: 축적 배열에서 픽셀 단위
+* theta: 축적 배열에서 라디안 단위
+* threshold: 축적 배열에서 직선으로 판단할 임계값
+* srn: 멀티 스케일 허프 변환에서 rho 해상도를 나누는 값. 양수를 지정시 rho/srn 해상도를 이용하여 멀티스케일 허프변환 수행
+* stn: 멀티스케일 허프 변환에서 theta해상도를 나누는 값
+* min_theta: 검출할 직선의 최소 theta 값
+* max_theta: 검출할 직선의 최대 theta 
+
+
 
