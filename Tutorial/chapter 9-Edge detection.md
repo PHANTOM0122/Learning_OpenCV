@@ -186,7 +186,7 @@ Step2) **적합한 반지름을 구한다(center구한 후 원주상에 충분�
 * **circles: 원의 중심(x,y), 반지름, (축적배열누적값). 주로 < vec3f >, < vec4f > 자료형 변수를 지정**
 * method: Hough_Fradient만 지정 가능
 * dp: 입력 영상과 축적 배열의 크기 비율
-* minDist: 인접한 원 중심의 최소 거리
+* minDist: 인접한 원 중심의 최소 거리. 두 원의 중심이 minDist보다 작은 경우 검출 X
 * param1: Canny edge 검출기의 높은 임계값 (낮은 임계값은 param1의 절반값으로 사용)
 * param2: 축적 배열에서 원 검출을 위한 임계값
 * minRadius: 검출할 원의 최소 반지름
