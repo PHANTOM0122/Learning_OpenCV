@@ -20,3 +20,29 @@ Edge detection
 * delta: 필터링 연산 후 추가적으로 더할 값
 * boarderType: 가장자리 픽셀 확장 방식
 <pre><code>
+void sobelEdge() {
+	Mat src = imread("lenna256.bmp");
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	Mat dx, dy;
+	Sobel(src, dx, CV_32FC1, 1, 0);
+	Sobel(src, dy, CV_32FC1, 0, 1);
+
+	Mat fmag, mag;
+	magnitude(dx, dy, fmag); // 벡터의 크기 계산
+	fmag.convertTo(mag, CV_8UC1); 
+
+	Mat edge = mag > 150; // gradient threshold 150으로 판별
+
+	imshow("src", src);
+	imshow("mag", mag);
+	imshow("edge", edge);
+
+	waitKey();
+	destroyAllWindows();
+}
+</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108449733-4f45a000-72a7-11eb-9942-0216a2343f4b.png)
