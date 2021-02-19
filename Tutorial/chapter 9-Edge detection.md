@@ -46,3 +46,13 @@ void sobelEdge() {
 }
 </code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108449733-4f45a000-72a7-11eb-9942-0216a2343f4b.png)
+### 9.1-3) Canny-edge-detection
+#### canny edge 수행 과정
+1) 가우시안 필터링 
+* **영상에 포함된 잡음을 제거하기 위함. 적절한 표준 편차를 선택하여야 smoothing시 edge의 세기 감소 방지가능**\
+2) 그래디언트 계산
+3) 비최대 억제
+* **Edge가 두껍게 표현되는 것을 방지. 이것을 통해 가장 큰 위치의 픽셀만 에지로 판별**
+4) 이중 임계값을 이용한 히스테리시스 에지 트래킹
+* **2개의 임계값을 사용하여 strong edge, weak edge, not edge 구분. 이후 hystreisis판별을 통해 strong과 연결된 weak는 edge로, 연결되지 않은 weak는 not edge로 판별**
+ 
