@@ -218,4 +218,38 @@ void on_hue_changed(int, void*) {
 * uniform: 히스토그램 빈의 간격이 균등한지를 나타내는 플래그
 **입력 영상 image에서 히스토그램 hist를 따르는 픽셀을 찾고, 그 정보를 backproject 영상으로 반환. **
 #### Example code) 피부색 영역에 대한 히스토그램 추출, 입력 영상에서 피부색 영역을 검출
-<pre><code>
+<pre><code>int main()
+{
+	// Calculate CrCb histogram from a reference image
+
+	Mat ref, ref_ycrcb, mask;
+	ref = imread("ref.png", IMREAD_COLOR);
+	mask = imread("mask.bmp", IMREAD_GRAYSCALE);
+	cvtColor(ref, ref_ycrcb, COLOR_BGR2YCrCb);
+
+	Mat hist;
+	int channels[] = { 1, 2 };
+	int cr_bins = 128; int cb_bins = 128;
+	int histSize[] = { cr_bins, cb_bins };
+	float cr_range[] = { 0, 256 };
+	float cb_range[] = { 0, 256 };
+	const float* ranges[] = { cr_range, cb_range };
+
+	calcHist(&ref_ycrcb, 1, channels, mask, hist, 2, histSize, ranges);
+
+	// Apply histogram backprojection to an input image
+
+	Mat src, src_ycrcb;
+	src = imread("kids.png", IMREAD_COLOR);
+	cvtColor(src, src_ycrcb, COLOR_BGR2YCrCb);
+
+	Mat backproj;
+	calcBackProject(&src_ycrcb, 1, channels, hist, backproj, ranges, 1, true);
+
+	imshow("src", src);
+	imshow("backproj", backproj);
+	waitKey(0);
+
+	return 0;
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108627581-bdea4f80-7499-11eb-9f25-6d0ddfef0d8b.png)
