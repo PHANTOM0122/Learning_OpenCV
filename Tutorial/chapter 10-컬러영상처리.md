@@ -56,4 +56,26 @@ void colorInverse() {
 * **GRAY2BGR은 흑백영상을 컬러영상으로 변환**
 
 #### BGR2HSV 와 HSV2BGR
-* 
+* **HSV색 모델은 색상, 채도(색의 순도), 명도(빛의 세기)로 색을 표현하는 방식이다.**
+
+#### BGR2YCrCb 와 YCrCb2BGR
+* Y성분은 밝기와 휘도를 나타내고 Cr과 Cb 성분은 색상 또는 색차 정보를 나타난다.
+<pre><code>
+void colorGrayscale() {
+	Mat src = imread("butterfly.jpg", IMREAD_COLOR);
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_BGR2GRAY);
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108625309-942b2b80-748d-11eb-8217-040a3e8003cd.png)
+
