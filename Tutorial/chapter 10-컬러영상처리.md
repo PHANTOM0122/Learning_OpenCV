@@ -202,4 +202,20 @@ void on_hue_changed(int, void*) {
 	imshow("mask", mask);
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108626612-5c73b200-7494-11eb-8827-69703b7dba77.png)
-
+### 10-2-3) 히스토그램 역투영
+* 사람의 피부색처럼 미세한 변화가 있거나 색상 값을 수치적으로 지정하기 어려운 경우에는 inRange()가 적합하지 않다
+* **입력 영상서 찾고자 하는 객체의 기준 영상을 미리 가지고 있다면 컬러 히스토그램 정보를 이용하여 비슷한 색상 영역을 찾을 수 있다**
+* **기준 영상으로부터 찾고자 하는 객체의 컬러 히스토그램을 미리 구하고, 주어진 영상에서 해당 히스토그램에 부합하는 영역을 찾아내는 기법**
+> **calcBackProject()를 이용한 히스토그램 역투영**
+**void calcBackProject(const Mat* images, int nimages, const int * channels, InputArray hist, OutputArray backProject, const float * * ranges, double scale = 1, bool uniform = true);** 
+* images: 입력 영상의 배열 또는 입력 영상의 주소. 영상의 배열인 경우, 모든 영상의 크기와 깊이는 같아야 한다.
+* nimages: 입력 영상의 갯수
+* channels: 역투영 계산 시 사용할 채널 번호 배열
+* hist: 입력 히스토그램
+* backProject: 출력 히스토그램 역투영 영상. 입력 영상과 같은 크기, 같은 깊이를 갖는 1채널 행렬
+* ranges: 각 차원의 히스토그램 빈 범위를 나타내는 배열의 배열
+* scale: 히스토그램 역투영 값에 추가적으로 곱할 값
+* uniform: 히스토그램 빈의 간격이 균등한지를 나타내는 플래그
+**입력 영상 image에서 히스토그램 hist를 따르는 픽셀을 찾고, 그 정보를 backproject 영상으로 반환. **
+#### Example code) 피부색 영역에 대한 히스토그램 추출, 입력 영상에서 피부색 영역을 검출
+<pre><code>
