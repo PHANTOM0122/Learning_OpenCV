@@ -112,5 +112,41 @@ void colorSplit() {
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108625540-d43ede00-748e-11eb-815e-974b476ce63f.png)
 
+## 10-2) 컬러 영상 처리 기법
+### 10-2-1) 컬러 히스토그램 평활화
+* **컬러 영상의 색감은 변경하지 않고, 명암비를 높이려면 영상의 밝기 정보만을 사용해야 한다. 입력 영상을 밝기 정보와 색상 정보로 분리한 이후, 밝기 정보에 대해서만 히스토그램 평활화를 수행한다**
+![image](https://user-images.githubusercontent.com/50229148/108626011-59c38d80-7491-11eb-8e49-3d812969547b.png)
+<pre><code>
+int main(void)
+{
+	Mat src = imread("pepper.bmp", IMREAD_COLOR);
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return -1;
+	}
+
+	Mat src_ycrcb;
+	cvtColor(src, src_ycrcb, COLOR_BGR2YCrCb);
+
+	vector<Mat> ycrcb_planes;
+	split(src_ycrcb, ycrcb_planes);
+
+	equalizeHist(ycrcb_planes[0], ycrcb_planes[0]); // Y channel
+
+	Mat dst_ycrcb;
+	merge(ycrcb_planes, dst_ycrcb);
+
+	Mat dst;
+	cvtColor(dst_ycrcb, dst, COLOR_YCrCb2BGR);
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey(0);
+	return 0;
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108625940-f0dc1580-7490-11eb-9230-176f3a5461d6.png)
+
 
 
