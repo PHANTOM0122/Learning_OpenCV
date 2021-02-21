@@ -42,3 +42,4 @@ void colorInverse() {
 	waitKey();
 	destroyAllWindows();
 }</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108613589-cfe6d680-7436-11eb-85d3-92e542d803b5.png)
