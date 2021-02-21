@@ -151,10 +151,14 @@ int main(void)
 * 특정 색상을 추출하는 작업이 많이 사용. 
 * RGB 색 공간보다는 HSV등의 색상(H)정보가 따로 설정되어 있는 색 공간을 사용하는 것이 유리하다.
 > **inRange()함수를 통한 특정 색상 추출**
+  * 지정한 밝기 또는 색상 범위에 포함되어 있으면 흰색, 그렇지 않으면 검은색으로 채워진 마스크 영상 dst를 반환합니다.
+![image](https://user-images.githubusercontent.com/50229148/108626660-afe60000-7494-11eb-8f89-7589aca42d55.png)
+
 **void inRange(InputArray src, InputArray lowerb, InputArray upperb, OutputArray dst);**
 * lowerb : 하한값. 주로 Mat or Schalar 객체 지정
 * upperb : 상한값. 주로 Mat or Schalar 객체 지정
-* dst : 출력 마스크 영상. 입력 영상과 크기가 가톡, 타입은 CV_8UC1
+* dst : 출력 마스크 영상. 입력 영상과 크기가 같다, 타입은 CV_8UC1
+
 #### Example code) 트랙바를 이용한 상한값, 하한값 설정
 <pre><code>
 #include "opencv2/opencv.hpp"
