@@ -252,4 +252,4 @@ void on_hue_changed(int, void*) {
 
 	return 0;
 }</code></pre>
-![image](https://user-images.githubusercontent.com/50229148/108627581-bdea4f80-7499-11eb-9f25-6d0ddfef0d8b.png)
+![image](https://user-images.githubusercontent.com/50229148/108627608-e4a88600-7499-11eb-9ccd-884ba33d65c7.png)
