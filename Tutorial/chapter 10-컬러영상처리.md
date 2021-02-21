@@ -78,4 +78,39 @@ void colorGrayscale() {
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108625309-942b2b80-748d-11eb-8217-040a3e8003cd.png)
+### 10-1-3) 색상 채널 나누기
+#### split()함수를 통한 색상 채널 정보 나누기
+**void split(const Mat& src, Mat* mvbegin)**
+**void split(InputArray src, OutputArray mv);**
+* src : 입력 다채널 행렬
+* mvbegin : 분리된 1채널 행렬을 저장할 mat배열 주소
+* mv: 분리된 1채널 행렬을 저장할 벡터
+#### merge()함수를 통한 색상 채널 정보 통합
+**void merge(const Mat* mv, size_t count, OutputArray dst);**
+**void merge(InputArrayofArrays mv, OutputArray dst);**
+* mv : 1채널 행렬을 저장하고 있는 배열 혹은 벡터. 모든 행렬은 크기와 길이가 같아야 한다
+* count : Mat 배열의 크기
+* dst : 출력 다채널 행렬
+<pre><code>
+void colorSplit() {
+	Mat src = imread("candies.png");
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	vector<Mat> bgr_planes;
+	split(src, bgr_planes);
+
+	imshow("src", src);
+	imshow("B_plane", bgr_planes[0]);
+	imshow("G_plane", bgr_planes[1]);
+	imshow("R_plane", bgr_planes[2]);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108625540-d43ede00-748e-11eb-815e-974b476ce63f.png)
+
+
 
