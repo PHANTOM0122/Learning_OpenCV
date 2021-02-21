@@ -156,5 +156,46 @@ int main(void)
 * upperb : 상한값. 주로 Mat or Schalar 객체 지정
 * dst : 출력 마스크 영상. 입력 영상과 크기가 가톡, 타입은 CV_8UC1
 #### Example code) 트랙바를 이용한 상한값, 하한값 설정
+<pre><code>
+#include "opencv2/opencv.hpp"
+#include <iostream>
 
+using namespace cv;
+using namespace std;
+
+int lower_hue = 49, upper_hue = 80;
+Mat src, src_hsv, mask;
+
+void on_hue_changed(int, void*);
+
+int main(int argc, char* argv[])
+{
+	Mat src = imread("candies.png", IMREAD_COLOR);
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return -1;
+	}
+
+	cvtColor(src, src_hsv, COLOR_BGR2GRAY);
+
+	imshow("src", src);
+
+	namedWindow("mask");
+	createTrackbar("Lower hue", "mask", &lower_hue, 179, on_hue_changed);
+	createTrackbar("Upper hue", "mask", &upper_hue, 179, on_hue_changed);
+	on_hue_changed(0, 0);
+
+	waitKey();
+	return 0;
+}
+
+void on_hue_changed(int, void*) {
+	Scalar lowerb(lower_hue, 100, 0);
+	Scalar upperb(upper_hue, 255, 255);
+	inRange(src_hsv, lowerb, upperb, mask);
+
+	imshow("mask", mask);
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108626612-5c73b200-7494-11eb-8827-69703b7dba77.png)
 
