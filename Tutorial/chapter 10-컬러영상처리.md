@@ -43,3 +43,17 @@ void colorInverse() {
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108613589-cfe6d680-7436-11eb-85d3-92e542d803b5.png)
+### 10-1-2) 색 공간 변환
+> **void cvtColor(InputArray src, OutputArray dst, int code, int dstCn = 0;)**
+* src: 입력영상
+* dst: 결과영상
+* code: 색 공간 변환 코드
+* dstCn: 결과 영상의 채널 수
+* ![image](https://user-images.githubusercontent.com/50229148/108624608-49a7b000-7489-11eb-9d5d-a9269d72442c.png)
+
+#### BGR2GRAY 와 GRAY2BGR
+* **BGR2GRAY는 영상의 메모리를 아껴서 연산 속도 향상 시킨다**
+* **GRAY2BGR은 흑백영상을 컬러영상으로 변환**
+
+#### BGR2HSV 와 HSV2BGR
+* 
