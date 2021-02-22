@@ -160,3 +160,16 @@ void erode_dilate()
 * erode 영상은 객체 외관이 작아졌고 우측 하단 흰색 픽셀이 사라짐
 * dilate 영상은 객체 외관이 확대되었고 객체 내부의 검은색 구멍은 좁아짐
 ![image](https://user-images.githubusercontent.com/50229148/108740392-f745bc80-7578-11eb-9ef9-72acb5fef8da.png)
+
+> **morphologyEx()함수를 이용한 범용적인 morphology 연산**
+**void morphologyEx(src,dst,int op, kernel, anchor, iterations, borderType, Sclar& borderValue)**
+* op : 모폴로지 연산 타입. MorphTypes 열거형 상수를 지정
+MorphTypes|설명|
+|-----|-----|
+MORPH_ERODE| 침식 연산
+MORPH_DILATE| 팽창 영산
+MORPH_OPEN| 열기 연산 (침식 -> 팽창)
+MORPH_CLOSE| 닫기 연산 (팽창 -> 침식)
+MORPH_GRADIENT| 타원 모양의 구조 요소. 사각형에 내접하는 타원 이용. 
+#### Example 
+<pre><code>
