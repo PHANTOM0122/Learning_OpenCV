@@ -110,7 +110,8 @@ void on_threshold(int pos, void* userdata) {
 * ksize : 구조 요소의 크기
 * anchor : 구조 요소 중심 좌표. (-1,-1)을 지정하면 중앙을 중심 좌표로 사용
 * 반환값 : 구조 요소 행렬
-|Morphshape|설명|
+
+Morphshape|설명|
 |-----|-----|
 MORPH_RECT| 사각형 모양의 구조 요소
 MORPH_CROSS| 십자가 모양의 구조 요소
