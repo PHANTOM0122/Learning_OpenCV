@@ -98,3 +98,20 @@ void on_threshold(int pos, void* userdata) {
 	imshow("dst", dst);
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108737200-b7310a80-7575-11eb-8a89-1308cb2930a4.png)
+## 11.2 Morphology 연산
+* **Morphology 연산은 영상 내부 객체의 형태와 구조를 분석하고 처리하는 기법이다**
+* 주로 이진화된 영상에서 객체의 모양을 변형하는 용도로 사용
+###  11.2-1) 이진 영상의 침식과 팽창
+* **모폴로지 연산을 정의하려면 먼저 구조 요소(연산의 동작을 결정하는 작은 크기의 행렬)를 정의해야 한다**
+* 대부분의 경우 구조 요소의 중심을 고정점으로 사용
+> **getStructuringElement()함수를 이용한 구조 요소 행렬 구하기**
+**Mat getStructuringElement(int shape, Size ksize, Pointer anchor = Pointer(-1,-1));**
+* shape : 구조 요소의 모양 (아래 표 참조)
+* ksize : 구조 요소의 크기
+* anchor : 구조 요소 중심 좌표. (-1,-1)을 지정하면 중앙을 중심 좌표로 사용
+* 반환값 : 구조 요소 행렬
+|Morphshape|설명|
+|-----|-----|
+MORPH_RECT| 사각형 모양의 구조 요소
+MORPH_CROSS| 십자가 모양의 구조 요소
+MORPH_ELLIPSE| 타원 모양의 구조 요소. 사각형에 내접하는 타원 이용. 
