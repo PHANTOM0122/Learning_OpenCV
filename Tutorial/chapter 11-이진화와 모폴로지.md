@@ -131,3 +131,32 @@ MORPH_ELLIPSE| 타원 모양의 구조 요소. 사각형에 내접하는 타원 
 * iteration : 반복 횟수
 * boarderType : 가장자리 픽셀 확장 방식
 * boarderValue : borderType이 BORDER_CONSTANT인 경우 확장된 가장자리 픽셀을 채울 값.
+#### Example 
+<pre><code>
+void erode_dilate()
+{
+	Mat src = imread("milkdrop.bmp", IMREAD_GRAYSCALE);
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	Mat bin;
+	threshold(src, bin, 0, 255, THRESH_BINARY | THRESH_OTSU);
+
+	Mat dst1, dst2;
+	erode(bin, dst1, Mat());
+	dilate(bin, dst2, Mat());
+
+	imshow("src", src);
+	imshow("bin", bin);
+	imshow("erode", dst1);
+	imshow("dilate", dst2);
+
+	waitKey();
+	destroyAllWindows();
+}</code></pre>
+* erode 영상은 객체 외관이 작아졌고 우측 하단 흰색 픽셀이 사라짐
+* dilate 영상은 객체 외관이 확대되었고 객체 내부의 검은색 구멍은 좁아짐
+![image](https://user-images.githubusercontent.com/50229148/108740392-f745bc80-7578-11eb-9ef9-72acb5fef8da.png)
