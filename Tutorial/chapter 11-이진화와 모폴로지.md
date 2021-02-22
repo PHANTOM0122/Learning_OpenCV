@@ -173,3 +173,24 @@ MORPH_CLOSE| 닫기 연산 (팽창 -> 침식)
 MORPH_GRADIENT| 타원 모양의 구조 요소. 사각형에 내접하는 타원 이용. 
 #### Example 
 <pre><code>
+void open_close() {
+	Mat src = imread("milkdrop.bmp", IMREAD_GRAYSCALE);
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+	Mat bin;
+	threshold(src, bin, 0, 255, THRESH_BINARY | THRESH_OTSU);
+	Mat dst1, dst2;
+	morphologyEx(src, dst1, MORPH_OPEN, Mat());
+	morphologyEx(src, dst2, MORPH_CLOSE, Mat());
+
+	imshow("src", src);
+	imshow("bin", bin);
+	imshow("erode", dst1);
+	imshow("dilate", dst2);
+
+	waitKey();
+	destroyAllWindows();
+}</
