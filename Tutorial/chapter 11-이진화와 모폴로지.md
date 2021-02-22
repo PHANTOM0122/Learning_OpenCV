@@ -71,6 +71,9 @@ void on_threshold(int pos, void* userdata) {
 * 일반적인 threshold()함수는 영상 전체 픽셀에 동일하게 적용 -> 화면 일부가 어두운 경우 결과가 이상해짐.
 * **adaptive threshold를 이용하는 경우 각 픽셀마다 서로 다른 threshold를 사용하여 효과적**
 * 정해진 크기의 사각형 블록을 정하고, 블록 내부의 픽셀 값 분포로부터 고유의 임계값 결정
+* 
+![image](https://user-images.githubusercontent.com/50229148/108737008-805af480-7575-11eb-9ffd-abfe52717400.png)
+
 **void adaptiveThreshold(InputArray src, OutputArray dst, double maxValue, int adaptiveMethod, int thresholdType, itn blockSize, double C)**
 * maxValue : 이진화 결과 영상의 최댓값
 * adaptiveMethod : 블록 평균 계산 방법의 지정. ADAPTIVE_THRESHOLD_MEAN_C OR ADAPTIVE_THRESHOLD_GUASSIAN_C중 하나를 지정
@@ -81,3 +84,17 @@ void on_threshold(int pos, void* userdata) {
 - ADAPTIVE_THRESHOLD_GUASSIAN_C -> 가우시안 마스크를 적용하여 가중 평균을 구한다.
 
 #### Example) Trackbar를 이용한 이진화 예제2
+<pre><code>
+void on_threshold(int pos, void* userdata) {
+	Mat src = *(Mat*)userdata; // userdata를 mat*으로 형변환후 변수 참조
+
+	int bsize = pos; // blocksize
+	if (bsize % 2 == 0)bsize--; // blocksize는 홀수
+	if (bsize < 3) bsize = 3;
+
+	Mat dst;
+	adaptiveThreshold(src, dst, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY, bsize, 5);
+
+	imshow("dst", dst);
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108737200-b7310a80-7575-11eb-8a89-1308cb2930a4.png)
