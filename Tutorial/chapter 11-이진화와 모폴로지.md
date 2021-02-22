@@ -4,7 +4,7 @@
 * grayscale 영상의 pixel값을 0 또는 255로 변환하는 기법이다
 * **이진화는 객체 영역과 배경 영역을 구분하기 위한 용도로 널리 활용된다**
 
-### 11.1-1) 이진화
+### 11.1-1) Threshold를 이용한 이진화
 * **영상의 이진화는 각 픽셀을 두개의 부류로 나누는 작업이다**
 * **pixel의 값이 임계값(threshold)보다 크면 255, 작으면 0으로 설정한다**
 
@@ -67,5 +67,17 @@ void on_threshold(int pos, void* userdata) {
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108734830-32dd8800-7573-11eb-8e9f-94c3fd0867a0.png)
 
+### 11.1-2) Adaptive Threshold를 이용한 이진화
+* 일반적인 threshold()함수는 영상 전체 픽셀에 동일하게 적용 -> 화면 일부가 어두운 경우 결과가 이상해짐.
+* **adaptive threshold를 이용하는 경우 각 픽셀마다 서로 다른 threshold를 사용하여 효과적**
+* 정해진 크기의 사각형 블록을 정하고, 블록 내부의 픽셀 값 분포로부터 고유의 임계값 결정
+**void adaptiveThreshold(InputArray src, OutputArray dst, double maxValue, int adaptiveMethod, int thresholdType, itn blockSize, double C)**
+* maxValue : 이진화 결과 영상의 최댓값
+* adaptiveMethod : 블록 평균 계산 방법의 지정. ADAPTIVE_THRESHOLD_MEAN_C OR ADAPTIVE_THRESHOLD_GUASSIAN_C중 하나를 지정
+* thresholdType : THRESH_BINARY OR THRESH_BINARY_INV중 하나 지정
+* **blocksize: threshold계산시 사용하는 블럭 크기. 3보다 같거나 큰 홀수를 지정해야 한다**
+* C : 임계값 조정을 위한 상수. 블록 평균에서 C를 뺀 값을 임계값으로 사용
+- ADAPTIVE_THRESHOLD_MEAN_C -> 주변 영역의 픽셀로부터 산술 평균을 구한다
+- ADAPTIVE_THRESHOLD_GUASSIAN_C -> 가우시안 마스크를 적용하여 가중 평균을 구한다.
 
-
+#### Example) Trackbar를 이용한 이진화 예제2
