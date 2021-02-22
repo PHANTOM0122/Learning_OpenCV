@@ -110,9 +110,24 @@ void on_threshold(int pos, void* userdata) {
 * ksize : 구조 요소의 크기
 * anchor : 구조 요소 중심 좌표. (-1,-1)을 지정하면 중앙을 중심 좌표로 사용
 * 반환값 : 구조 요소 행렬
-
 Morphshape|설명|
 |-----|-----|
 MORPH_RECT| 사각형 모양의 구조 요소
 MORPH_CROSS| 십자가 모양의 구조 요소
 MORPH_ELLIPSE| 타원 모양의 구조 요소. 사각형에 내접하는 타원 이용. 
+
+![image](https://user-images.githubusercontent.com/50229148/108739390-f2343d80-7577-11eb-95fd-1c62dbfa3a9b.png)
+
+> **erode()함수를 이용한 침식 연산**
+**void erode(src, dst, InputArray kernel, Point anchor = point(-1,-1) int iterations = -1, int borderType = BOADER_CONSTANT, const Schalar& borderValue = morphologyDefaultBoarderValue());**
+* kernel : 구조 요소. Mat을 지정하면 3x3 사각형 구조 요소 사용. 그 외는 getStructuingElement() 사용
+* iteration : 반복 횟수
+* boarderType : 가장자리 픽셀 확장 방식
+* boarderValue : borderType이 BORDER_CONSTANT인 경우 확장된 가장자리 픽셀을 채울 값.
+
+> **dilate()함수를 이용한 팽창 연산**
+**void erode(src, dst, InputArray kernel, Point anchor = point(-1,-1) int iterations = -1, int borderType = BOADER_CONSTANT, const Schalar& borderValue = morphologyDefaultBoarderValue());**
+* kernel : 구조 요소. Mat을 지정하면 3x3 사각형 구조 요소 사용. 그 외는 getStructuingElement() 사용
+* iteration : 반복 횟수
+* boarderType : 가장자리 픽셀 확장 방식
+* boarderValue : borderType이 BORDER_CONSTANT인 경우 확장된 가장자리 픽셀을 채울 값.
