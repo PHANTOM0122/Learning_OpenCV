@@ -187,3 +187,19 @@ void contours_hier()
 	destroyAllWindows();
 }</code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108858049-143cc700-762f-11eb-8d6a-eef13933c022.png)
+ ### 12.2-2) 외곽선 처리 함수
+1) 주어진 외곽선 점들을 감싸는 가장 작은 크기의 사각형, 즉 바운딩 박스를 구하고 싶다면 boundingRect() 함수를 사용한다.
+> Rect boundingRect(InputArray points);
+  * points : 입력 점들의 집합
+  * return : 입력 점들을 감싸는 최소 크기의 사각형
+2) 외곽선 또는 점들을 감싸는 최소 크기의 회전된 사각형을 구하고 싶을 때는 minAreaRect() 함수를 사용한다.
+> Rect boundingRect(InputArray points);
+  * points : 입력 점들의 집합
+  * return : 입력 점들을 감싸는 최소 크기의 회전된 사각형
+3) 외곽선 또는 점들을 감싸는 최소 크기의 원을 구하고 싶을 때는 minEnclosingCircle() 함수를 사용한다.
+> Rect boundingRect(InputArray points, Point2f& center, float& radius);
+  * points : 입력 점들의 집합
+  * center : 중심 좌표
+  * radius : 반지름
+  * return : 입력 점들을 감싸는 최소 크기의 회전된 사각형
+4) 외곽선 또는 점들을 감싸는 최소 크기의 원을 구하고 싶을 때는 minEnclosingCircle() 함수를 사용한다.
