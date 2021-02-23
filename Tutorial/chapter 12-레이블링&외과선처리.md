@@ -114,3 +114,5 @@ CHAIN_APPROX_SIMPLE	|외곽선 중에서 수평선, 수직선, 대각선 성분�
 CHAIN_APPROX_TC89_L1	|Teh & Chin L1 근사화를 적용
 CHAIN_APPROX_TC89_KOCS	|Teh & Chin k cos 근사화를 적용
 
+![image](https://user-images.githubusercontent.com/50229148/108854266-06854280-762b-11eb-8e7b-1ce5c190eb99.png)
+![image](https://user-images.githubusercontent.com/50229148/108854284-09803300-762b-11eb-811e-61f42d768a0b.png)
