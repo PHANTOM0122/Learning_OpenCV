@@ -157,3 +157,33 @@ void contours_basic()
 
 ![image](https://user-images.githubusercontent.com/50229148/108856776-bcea2700-762d-11eb-903c-cf56d0b8f281.png)
 
+#### Exmaple2 외곽선 검출과 그리기
+<pre><code>
+void contours_hier()
+{
+	Mat src = imread("contours.bmp", IMREAD_GRAYSCALE);
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	vector<vector<Point> > contours;
+	vector<Vec4i> hierarchy;
+	findContours(src, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_GRAY2BGR);
+
+	for (int idx = 0; idx >= 0; idx = hierarchy[idx][0]) {
+		Scalar c(rand() & 255, rand() & 255, rand() & 255);
+		drawContours(dst, contours, idx, c, -1, LINE_8, hierarchy);
+	}
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey(0);
+	destroyAllWindows();
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108858049-143cc700-762f-11eb-8d6a-eef13933c022.png)
