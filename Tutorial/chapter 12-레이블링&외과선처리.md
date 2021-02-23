@@ -116,3 +116,13 @@ CHAIN_APPROX_TC89_KOCS	|Teh & Chin k cos 근사화를 적용
 
 ![image](https://user-images.githubusercontent.com/50229148/108854266-06854280-762b-11eb-8e7b-1ce5c190eb99.png)
 ![image](https://user-images.githubusercontent.com/50229148/108854284-09803300-762b-11eb-811e-61f42d768a0b.png)
+
+> **drawContours()을 통한 외곽선 그리기**
+**void drawContours(image,InputArrayOfArraus contours, int contourIdx, const Scalar& color, int thickness = 1, int lineType = LINE_8, InputArray hierarchy = noArray(), int maxLevel = INT_MAX, Point offset = Point());**
+* contourIdx : 외곽선 번호. 음수를 지정하면 전체 외곽선을 그린다
+* color : 외곽선 색상 또는 밝기
+* thickness : 외과선 두께. FILLED or -1을 지정하면 외곽선 내부를 채운다
+* lineType : 외곽선 타입
+* hierarchy : 외곽선 계층 정보
+* maxLevel : 그릴 외곽선의 최대 레벨. 0이면 지정한 번오만 그리고, 1이상이면 그에 해당하는 하위 레벨까지 그린다
+* offset : 지정한 좌표의 크기만큼 외곽선 좌표를 이동하여 그린다
