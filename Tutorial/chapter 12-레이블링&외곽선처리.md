@@ -219,3 +219,61 @@ void contours_hier()
 * **더글라스-포이커 알고리즘을 이용한다.**
 더글라스 포이커 :입력 외곽선에서 가장 멀리 떨어져 있는 두 점을 찾아 직선으로 연결하고, 해당 직선에서 가장 멀리 떨어져 있는 외곽선 상의 점을 찾아 근사화 점으로 추가한다.
 ![image](https://user-images.githubusercontent.com/50229148/108860390-7d253e80-7631-11eb-81d7-b74ca47eb557.png)
+<pre><code>
+// pts 외곽선 주변에 바은딩 박스를 그리고 label 문자열을 출력합니다
+void setLabel(Mat& img, const vector<Point>& pts, const String& label) {
+	Rect rc = boundingRect(pts);
+	rectangle(img, rc, Scalar(0, 0, 255), 1);
+	putText(img, label, rc.tl(), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
+}
+
+int main(int argc, char* argv[])
+{
+	Mat img = imread("polygon.bmp", IMREAD_COLOR);
+
+	if (img.empty()) {
+		cerr << "Image load failed!" << endl;
+		return -1;
+	}
+
+	Mat gray;
+	cvtColor(img, gray, COLOR_BGR2GRAY);
+
+	Mat bin;
+	threshold(gray, bin, 200, 255, THRESH_BINARY_INV | THRESH_OTSU);
+
+	vector<vector<Point>> contours;
+	findContours(bin, contours, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+
+	for (vector<Point> pts : contours) {
+		if (contourArea(pts) < 400)
+			continue;
+
+		vector<Point> approx;
+		approxPolyDP(pts, approx, arcLength(pts, true) * 0.02, true);
+
+		int vtc = (int)approx.size();
+
+		if (vtc == 3) {
+			setLabel(img, pts, "TRI");
+		}
+		else if (vtc == 4) {
+			setLabel(img, pts, "RECT");
+		}
+		else { // 객체의 면적 대 비율을 조사하여 원에 가까우면 주변에 바운딩 박스를 구함
+			double len = arcLength(pts, true);
+			double area = contourArea(pts);
+			double ratio = 4. * CV_PI * area / (len * len);
+
+			if (ratio > 0.85) {
+				setLabel(img, pts, "CIR");
+			}
+		}
+	}
+
+	imshow("img", img);
+
+	waitKey(0);
+	return 0;
+}</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108861869-06894080-7633-11eb-9be9-460b7f817219.png)
