@@ -75,3 +75,10 @@ void labelint_stats() {
 }
 </code></pre>
 ![image](https://user-images.githubusercontent.com/50229148/108841622-670c8380-761b-11eb-8ca9-3d511bfcba73.png)
+ ## 12.2 외곽선 검출
+ * **객체의 외곽선 좌표를 모두 추출하여 계층 정보와 함께 반환**
+ ### 12.2-1) 외곽선 검출
+ * 외곽선은 객체 영역 픽셀 중에서 배경 영역과 인접한 픽셀을 의미한다
+ * **객체 하나의 외곽선 정보는 vector < Point > 타입으로 저장, 하나의 영상에는 여려개의 객체가 있으므로 vector < vector < point > > 타입으로 저장**
+ ![image](https://user-images.githubusercontent.com/50229148/108852830-6844ad00-7629-11eb-85a2-8721196bebc0.png)
+ 
