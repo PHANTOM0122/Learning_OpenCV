@@ -212,3 +212,10 @@ void contours_hier()
   * contour : 입력 곡선
   * oriented : 진행 방향 정보 사용 여부. true이면 (반)시계 방향에 따라 부호가 달라짐. false이면 면적의 절댓값 반환
   * 반환값 : 입력 곡선이 감싸는 면적
+6) 외곽선 또는 곡선을 근사화 할 때는 approxPolyDp() 함수를 사용한다.
+> void approxPolyDP(InputArray curve, OutputArray approxCurve, double epsilon, bool closed);
+  * epsilon : 근사화 정밀도 파라미터
+  * closed : 폐곡선 여부.
+* **더글라스-포이커 알고리즘을 이용한다.**
+더글라스 포이커 :입력 외곽선에서 가장 멀리 떨어져 있는 두 점을 찾아 직선으로 연결하고, 해당 직선에서 가장 멀리 떨어져 있는 외곽선 상의 점을 찾아 근사화 점으로 추가한다.
+![image](https://user-images.githubusercontent.com/50229148/108860390-7d253e80-7631-11eb-81d7-b74ca47eb557.png)
