@@ -3,6 +3,7 @@
 ## 12.1 레이블링(labeling)
 * **영상 내에 존재하는 객체 픽셀 집합에 고유 번호를 매기는 작업**
 * **일반적으로 이진화된 영상에서 수행된다. 검은색 픽셀은 배경, 흰색 픽셀은 객체로 간주**
+* Grayscale영상을 사용할 경우 pixel이 0인 것만 배경으로 인식하고, 회색 부분은 객체로 인식한다.
 > **connectedComponents()함수를 통한 레이블링 영상 출력**
 **int connectedComponents(InputArray image, OutputArray labels, int connectivity = 0. int ltype = CV_32S);**
 * labels : 출력 레이블 맵 행렬
