@@ -197,9 +197,18 @@ void contours_hier()
   * points : 입력 점들의 집합
   * return : 입력 점들을 감싸는 최소 크기의 회전된 사각형
 3) 외곽선 또는 점들을 감싸는 최소 크기의 원을 구하고 싶을 때는 minEnclosingCircle() 함수를 사용한다.
-> Rect boundingRect(InputArray points, Point2f& center, float& radius);
+> void boundingRect(InputArray points, Point2f& center, float& radius);
   * points : 입력 점들의 집합
   * center : 중심 좌표
   * radius : 반지름
   * return : 입력 점들을 감싸는 최소 크기의 회전된 사각형
-4) 외곽선 또는 점들을 감싸는 최소 크기의 원을 구하고 싶을 때는 minEnclosingCircle() 함수를 사용한다.
+4) 임의의 곡선의 길이를 구하고 싶을 때는 arcLength() 함수를 사용한다.
+> double arcLength(InputArray curve, bool closed);
+  * curve : 입력 곡선
+  * closed : 폐곡선 여부
+  * 반환값 : 입력 곡선의 길이
+5) 외곽선이 감싸는 영역의 면적을 알고 싶을 때는 contourArea() 함수를 사용한다.
+> double contourArea(InputArray contour, bool oriented = false);
+  * contour : 입력 곡선
+  * oriented : 진행 방향 정보 사용 여부. true이면 (반)시계 방향에 따라 부호가 달라짐. false이면 면적의 절댓값 반환
+  * 반환값 : 입력 곡선이 감싸는 면적
