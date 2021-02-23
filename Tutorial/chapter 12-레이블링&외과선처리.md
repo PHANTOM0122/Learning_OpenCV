@@ -105,3 +105,12 @@ RETR_EXTERNAL	|객체 바깥쪽 외곽선만 검색. 계층 구조는 만들지 
 RETR_LIST	|객체 바깥쪽과 안쪽 외곽선을 모두 검색. 계층 구조는 만들지 않는다.
 RETR_CCOMP	|모든 외곽선을 검색하고 2단계 계층 구조를 구성
 RETR_TREE	|모든 외곽선을 검색하고 전체 계층 구조를 구성
+
+
+ContoursApporximationModes	|설명|
+--------|----------|
+CHAIN_APPROX_NONE	|모든 외곽선 점들의 좌표를 저장
+CHAIN_APPROX_SIMPLE	|외곽선 중에서 수평선, 수직선, 대각선 성분은 끝점만 저장
+CHAIN_APPROX_TC89_L1	|Teh & Chin L1 근사화를 적용
+CHAIN_APPROX_TC89_KOCS	|Teh & Chin k cos 근사화를 적용
+
