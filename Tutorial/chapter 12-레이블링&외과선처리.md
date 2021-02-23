@@ -126,3 +126,34 @@ CHAIN_APPROX_TC89_KOCS	|Teh & Chin k cos 근사화를 적용
 * hierarchy : 외곽선 계층 정보
 * maxLevel : 그릴 외곽선의 최대 레벨. 0이면 지정한 번오만 그리고, 1이상이면 그에 해당하는 하위 레벨까지 그린다
 * offset : 지정한 좌표의 크기만큼 외곽선 좌표를 이동하여 그린다
+#### 외곽선 검출과 그리기
+<pre><code>
+void contours_basic()
+{
+	Mat src = imread("contours.bmp", IMREAD_GRAYSCALE);
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	vector<vector<Point>> contours;
+	findContours(src, contours, RETR_LIST, CHAIN_APPROX_NONE);
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_GRAY2BGR);
+
+	for (int i = 0; i < contours.size(); i++) {
+		Scalar c(rand() & 255, rand() & 255, rand() & 255); // Random으로 색상을 정함
+		drawContours(dst, contours, i, c, 2);
+	}
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey(0);
+	destroyAllWindows();
+} </code></pre>
+
+![image](https://user-images.githubusercontent.com/50229148/108856776-bcea2700-762d-11eb-903c-cf56d0b8f281.png)
+
