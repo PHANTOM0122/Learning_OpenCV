@@ -40,3 +40,38 @@ void labeling_basic() {
 * stats : 각각의 레이블 영역에 대한 통계 정보를 담은 행렬
 * centroid : 각각의 레이블 영역의 무게 중심 좌표 정보를 담은 행렬
 * 반환값 : label 갯수
+![image](https://user-images.githubusercontent.com/50229148/108840644-0466b800-761a-11eb-8c98-05d7f3acc4bf.png)
+#### Example) labeling을 이용한 객체의 바운딩 박스 그리기
+<pre><code>
+void labelint_stats() {
+	Mat src = imread("keyboard.bmp", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	Mat bin;
+	threshold(src, bin, 0, 255, THRESH_BINARY | THRESH_OTSU);
+
+	Mat labels, stats, centroids;
+	int cnt = connectedComponentsWithStats(bin, labels, stats, centroids);
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_GRAY2BGR);
+
+	for (int i = 1; i < cnt; i++) { // 0은 배경이기 때문
+		int* p = stats.ptr<int>(i); // stats 배열
+
+		if (p[4] < 20) continue; // 객체의 픽셀 갯수(면적. 4번째 열)이 20이하면 잡음이라고 간주
+
+		rectangle(dst, Rect(p[0], p[1], p[2], p[3]),Scalar(0,255,255),2);
+	}
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}
+</code></pre>
+![image](https://user-images.githubusercontent.com/50229148/108841622-670c8380-761b-11eb-8ca9-3d511bfcba73.png)
