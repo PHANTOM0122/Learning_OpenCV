@@ -80,5 +80,28 @@ void labelint_stats() {
  ### 12.2-1) 외곽선 검출
  * 외곽선은 객체 영역 픽셀 중에서 배경 영역과 인접한 픽셀을 의미한다
  * **객체 하나의 외곽선 정보는 vector < Point > 타입으로 저장, 하나의 영상에는 여려개의 객체가 있으므로 vector < vector < point > > 타입으로 저장**
+ 
  ![image](https://user-images.githubusercontent.com/50229148/108852830-6844ad00-7629-11eb-85a2-8721196bebc0.png)
  
+ > **findContours()함수를 통한 외곽선 검출**
+
+**void findContours(image, OutputArray contours, OutputArray hierarchy, int mode, int method, Point offset = point());**
+
+**void findContours(image, OutputArray contours, int mode, int method, Point offset = point());**
+
+* image : 8비트 1채널 영상이여야 한다. 보통 threshold() 등 함수에 의해 만들어진 이진 영상을 사용한다.
+* contours : 검출된 외곽선 정보.  vector < vector < point > > 타입으로 저장
+* hierarchy : 외곽선 계층 정보. vector < Vec4i > 타입의 변수를 지정
+* mode : 외곽선 검출 모드. RetrievalModes 열거형 상수를 지정
+* mehtod : 외곽선 근사화 방법. 
+* offset : 외과선 점 좌표의 오프셋.
+* 실제 동작할 때는 입력 영상에서 픽셀 값이 0이 아니면 객체로 간주하여 외곽선을 검출한다.
+* hierarchy 인자에는 검출된 외곽선의 계층 정보가 저장되고, 보통 vector<Vec4i> 타입의 변수를 지정한다. Vec4i는 int 자료형 네 개를 저장할 수 있는 OpenCV 벡터 클래스로 i 번째 외곽선에 대해 hierarchy[i][0]에는 다음 외곽선 번호, hierarchy[i][1]에는 이전 외곽선 번호, hierarchy[i][2]에는 자식 외곽선 번호, hierarchy[i][3]에는 부모 외곽선 번호가 저장된다. 만약 계층 구조에서 해당 외곽선이 존재하지 않으면 -1이 저장된다.
+
+
+RetrievalModes|	설명|
+-------|-----------|
+RETR_EXTERNAL	|객체 바깥쪽 외곽선만 검색. 계층 구조는 만들지 않는다.
+RETR_LIST	|객체 바깥쪽과 안쪽 외곽선을 모두 검색. 계층 구조는 만들지 않는다.
+RETR_CCOMP	|모든 외곽선을 검색하고 2단계 계층 구조를 구성
+RETR_TREE	|모든 외곽선을 검색하고 전체 계층 구조를 구성
